@@ -94,9 +94,15 @@ def plot_LPD_with_streamlit(mean):
 
 
 
-data = load_data()
-model = load_model()
-N = data.shape[0]
+if 'data' not in st.session_state:
+    data = load_data()
+    N = data.shape[0]
+    st.session_state.data = 1
+    
+if 'model' not in st.session_state:
+    model = load_model()
+    st.session_state.model = 1
+
 
 
 st.title('Plot survival embeddings with data from dataset')
