@@ -18,8 +18,8 @@ st.title('📉 Modeling the Probability of Survival in a loan portfolio using XG
 st.header('👦 Author: Alexey Rodionov, HSE FCS, BSE203')
 st.subheader('💻 Github link: https://github.com/AlexiRod')
 
-DATA_PATH = "data/lending_club_dataset_for_xgbse.csv"
-MODEL_PATH = "data/estimator.pkl"
+DATA_PATH = "./data/lending_club_dataset_for_xgbse.csv"
+MODEL_PATH = "./data/estimator.pkl"
 
 @st.cache_data
 def load_data(): 

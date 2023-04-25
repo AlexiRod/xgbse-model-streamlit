@@ -16,8 +16,8 @@ st.set_page_config(
     }
 )
 
-DATA_PATH = "data/lending_club_dataset_for_xgbse.csv"
-MODEL_PATH = "data/estimator.pkl"
+DATA_PATH = "./data/lending_club_dataset_for_xgbse.csv"
+MODEL_PATH = "./data/estimator.pkl"
 
 @st.cache_data
 def load_data(): 
