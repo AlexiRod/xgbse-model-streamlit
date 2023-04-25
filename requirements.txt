@@ -2,5 +2,4 @@ numpy
 matplotlib
 pandas
 streamlit
-pickle
 xgbse
