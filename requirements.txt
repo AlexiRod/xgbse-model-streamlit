@@ -4,3 +4,4 @@ pandas
 streamlit
 pickle
 xgbse
+gdown

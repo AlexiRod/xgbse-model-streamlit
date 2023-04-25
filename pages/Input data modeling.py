@@ -3,8 +3,9 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import pickle
-from xgbse.converters import convert_to_structured
-from xgbse.metrics import concordance_index
+import os.path
+import gdown
+
 
 st.set_page_config(
     page_title="PD Curves from input data",
@@ -16,28 +17,41 @@ st.set_page_config(
     }
 )
 
-DATA_PATH = "lending_club_dataset_for_xgbse.csv"
+DATA_PATH = "data/lending_club_dataset_for_xgbse.csv"
+MODEL_PATH = "data/estimator.pkl"
 
 @st.cache_data
 def load_data(): 
     with st.spinner("Loading data..."):  
+
+        if os.path.isfile(DATA_PATH) is False:
+            with st.spinner("Downloading data from drive..."):
+                url = "https://drive.google.com/uc?id=1j76gcHyVH3_Mwizlo6zzRXTIYXdTXAwF"
+                output = DATA_PATH
+                gdown.download(url, output, quiet = False)
+                st.success("Data downloaded!")
+                st.balloons()
+
         data = pd.read_csv(DATA_PATH, low_memory = False)
         data.drop('Unnamed: 0', axis = 1, inplace = True)
         return data
-
-@st.cache_data
-def display_data(rows_amount):
-    st.header(f'First {rows_amount} rows of dataset:')
-    st.table(data.head(rows_amount))
     
 @st.cache_resource
 def load_model():
     with st.spinner("Loading model..."):  
-        with open('estimator.pkl', 'rb') as f:
-            model = pickle.load(f)
-        #st.success("Model loaded!")
-        return model
 
+        if os.path.isfile(MODEL_PATH) is False:
+            with st.spinner("Downloading model from drive..."):
+                url = "https://drive.google.com/uc?id=1ZcnAxXa-lXoa5TpQpadWgSQFxTbV33Tj"
+                output = MODEL_PATH
+                gdown.download(url, output, quiet = False)
+                st.success("Model downloaded!")
+                st.balloons()
+
+        with open(MODEL_PATH, 'rb') as f:
+            model = pickle.load(f)
+        return model
+    
 
 def plot_LSC(mean, upper_ci, lower_ci):
     fig, ax = plt.subplots()
